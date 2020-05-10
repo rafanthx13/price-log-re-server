@@ -3,7 +3,7 @@ if(!process.env.JEST_WORKER_ID){
 
 	const swaggerUi = require('swagger-ui-express');
 	const YAML = require('yamljs'); // Convert YAML to JSON
-	const swaggerDocument = YAML.load('src/env/swagger.yaml');
+	const swaggerDocument = YAML.load('src/config/swagger.yaml');
 
 	module.exports = app => {
 

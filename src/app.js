@@ -6,7 +6,7 @@ app.db = db;
 
 // a ordem faz diferença
 // use verbose : true para debugar chamadas de arquivos do cosign
-consign({  cwd: 'src', verbose: false })
+consign({  cwd: process.cwd()+"/src", verbose: true })
 	.include('./config/middlewares.js')
 	.then('./env/env.config.js')
 	.then('./config/passport.js')

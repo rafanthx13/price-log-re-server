@@ -2,7 +2,7 @@ const config = require('./knexfile.js')
 const knex = require('knex')
 
 // posos especificar varios bancos
-module.exports = knex(config.dev)
+module.exports = knex(config.main)
 
 /*
 

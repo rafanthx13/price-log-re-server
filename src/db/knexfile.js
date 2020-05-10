@@ -3,7 +3,7 @@ const { DB_HOST, DB_PORT, DB_USER, DB_PASS,
 
 module.exports = app = {
 
-	dev: {
+	main: {
 		client: 'mysql',
 		connection: {
 			host : DB_HOST,

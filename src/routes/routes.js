@@ -1,7 +1,7 @@
 module.exports = (app) => {
 
     app.get('/', (req, res) => {
-      res.status(200).send();
+        res.status(200).send('LogPriceServer is working v.knex.1.0.0!');;
     });
 
     // TODO colocar autorização em tudo
