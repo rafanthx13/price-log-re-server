@@ -1,9 +1,12 @@
+# Docs: https://swagger.io/docs/specification/2-0/basic-structure/
+# Edit in http://editor.swagger.io/
+
 swagger: '2.0'
 
 info:
-  description: This is a sample server Petstore server.
-  version: 1.0.0
-  title: Swagger LogApp
+  description: API REST para atender [LogPriceApp](https://price-log-app.herokuapp.com)
+  version: 1.0.6
+  title: Swagger LogPriceServer
   contact:
     name: Rafael Morais de Assis
     url: https://rafanthx13.github.io/
@@ -13,27 +16,173 @@ info:
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 
 schemes:
-  - http
+  - "http"
 host: localhost:3000
 basePath: /
 
+# tags: cada grupo de entidades
+tags:
+- name: "city"
+  description: "cities registered to search logs"
+- name: "shop"
+  description: "Shops registered of a city"
+- name: "product"
+  description: "Products"
+- name: "log"
+  description: "Price records for a product"
+- name: "user"
+  description: "users of system"
+
 paths:
+  ## CITY
   /city:
     get:
-      summary: Pegar Cidades
-      description: Retorna uma lista das cidades cadastradas
+      tags:
+      - "city"
+      description: "Returns all cities"
+      operationId: "getCity" # tem que ter para diferenciar cada url
+      produces:
+      - "application/json"
+      parameters: []
       responses:
         200:
-          description: Uma lista de cidades
+          description: successful operation
           schema:
             type: array
             items:
-              required:
-                - username
               properties:
-                firstName:
+                city_id:
+                  type: number
+                city:
                   type: string
-                lastName:
+                state:
                   type: string
-                username:
+                country:
                   type: string
+    post:
+      tags:
+      - "city"
+      description: "add new city"
+      operationId: "postCity" 
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "City object that needs to be added to the system"
+        required: true
+        schema:
+          $ref: "#/definitions/City_sent"
+      responses:
+        "201":
+          description: "City created with success"
+          schema:
+            $ref: "#/definitions/City_complete"
+        "400":
+          description: "Validation Error (400 BAD REQUEST)"
+        "409":
+          description: "Duplicate Error (409 CONFLIT)"
+        "500":
+          description: "Server Error (500 INTERNAL SERVER ERROR)"
+        
+  /city/{city_id}:
+    put:
+      tags:
+      - "city"
+      description: "Update a city in app"
+      operationId: "updateCity"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "city_id"
+        in: "path"
+        description: "id that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "City object that needs to be update a city"
+        required: true
+        schema:
+          $ref: '#/definitions/City_sent'
+      responses:
+        "200":
+          description: "City created with success"
+          schema:
+            $ref: "#/definitions/City_complete"
+        "400":
+          description: "Validation Error (400 BAD REQUEST)"
+        "404":
+          description: "Not Found Error (404 NOT FOUND)"
+        "409":
+          description: "Duplicate Error (409 CONFLIT)"
+        "500":
+          description: "Server Error (500 INTERNAL SERVER ERROR)"
+    delete:
+      tags:
+      - "city"
+      summary: ""
+      description: "Deletes a city"
+      operationId: "deletePet"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "city_id"
+        in: "path"
+        description: "id that need to be updated"
+        required: true
+        type: "string"
+      responses:
+        "204":
+          description: "City Deleted with Success"
+        "404":
+          description: "Not Found Error (404 NOT FOUND)"
+        "500":
+          description: "Server Error (500 INTERNAL SERVER ERROR)"
+  /city/city:
+    get:
+      tags:
+      - "city"
+      summary: ""
+      description: "Returns only names of all citiess"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items:
+              properties:
+                city:
+                  type: string
+                  
+# MODELS Definitions (permite ser chamados nas definiçôes de json)
+definitions:
+  City_sent:
+    type: "object"
+    required:
+    - "city"
+    properties:
+      city:
+        type: "string"
+      state:
+        type: "string"
+      country:
+        type: "string"
+  City_complete:
+    type: "object"
+    properties:
+      city_id:
+        type: "integer"
+      city:
+        type: "string"
+      state:
+        type: "string"
+      country:
+        type: "string"

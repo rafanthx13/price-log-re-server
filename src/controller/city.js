@@ -5,12 +5,15 @@ module.exports = (app) => {
 	const router = express.Router();
 
 	router.get('/', (req, res, next) => {
+
+    console.log('req.user', req.user);
     app.services.city.getAll()
       .then(result => res.status(200).json(result))
       .catch(err => next(err) );
   });
 
   router.get('/city', (req, res, next) => {
+    console.log('req.user', req.user);
     app.services.city.getOnlyCity()
       .then(result => res.status(200).json(result))
       .catch(err => next(err) );

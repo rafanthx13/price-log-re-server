@@ -1,10 +1,10 @@
 // Como tudo começa dedaqui, tudo vai ser apartir da entrada em src
-const { PORT } = require("./src/env/env.config.js")
+const { PORT } = require("./src/env/env.config.js");
 
-const app = require('./src/app');
+const app = require("./src/app");
 
 app.listen(PORT, () => {
-	console.log(`App Listening on Port: ${PORT}.`)
+  console.log(`App Listening on Port: ${PORT}.`);
 });
 
 /* Status Server Status

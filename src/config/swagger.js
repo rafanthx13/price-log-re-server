@@ -7,7 +7,7 @@ if(!process.env.JEST_WORKER_ID){
 
 	module.exports = app => {
 
-		app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+		app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 	}
 }

@@ -15,7 +15,8 @@ module.exports = (app) => {
     app.db('user').where({ id: payload.id })
       .select(['id', 'user_name', 'email', 'user_type'])
       .first()
-      .then(user => done(null, user ? { ...payload } : false))
+      .then(user => done(null, user ? { ...user } : false))
+      // Os dados serão colocados emm req.user para ser usados no próximo middleware
       .catch(err => done(err, false) )
   });
 

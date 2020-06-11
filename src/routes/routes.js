@@ -1,14 +1,14 @@
 module.exports = (app) => {
 
     app.get('/', (req, res) => {
-        res.status(200).send('LogPriceServer is working v.knex.1.0.0!');;
+        res.status(200).send('LogPriceServer is working v.knex.1.0.0!. Documentation in /swagger');;
     });
 
     // TODO colocar autorização em tudo
 
 
     //  app.config.passport.authenticate()
-	app.use('/city', app.controller.city);
+	app.use('/city', app.config.passport.authenticate(), app.controller.city);
 
     app.use('/shop', app.controller.shop);
 
